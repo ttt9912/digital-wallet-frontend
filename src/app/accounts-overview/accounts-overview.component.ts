@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { Account } from '../../model/model';
-import { AsyncPipe, CurrencyPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-accounts-overview',
@@ -10,7 +10,8 @@ import { AsyncPipe, CurrencyPipe, NgForOf, NgIf } from '@angular/common';
     AsyncPipe,
     NgForOf,
     NgIf,
-    CurrencyPipe
+    CurrencyPipe,
+    NgClass
   ],
   templateUrl: './accounts-overview.component.html',
   styleUrl: './accounts-overview.component.scss'
@@ -22,7 +23,7 @@ export class AccountsOverviewComponent {
   constructor() {
     this.accounts$ = of(
       [
-        { accountId: '9348579', bank: 'UBS', accountType: 'Savings', currency: 'CHF', amount: 1231.25 },
+        { accountId: '9348579', bank: 'UBS', accountType: 'Savings', currency: 'CHF', amount: -5231.25 },
         { accountId: '3920432', bank: 'BEKB', accountType: 'Savings', currency: 'CHF', amount: 1231.25 },
         { accountId: '2342343', bank: 'BEKB', accountType: 'Savings', currency: 'CHF', amount: 1231.25 }
       ]
