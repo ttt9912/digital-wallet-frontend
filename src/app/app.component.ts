@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AccountsOverviewComponent } from './accounts-overview/accounts-overview.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, AccountsOverviewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'digital-wallet-frontend';
-  constructor(private modalService: NgbModal) {
-  }
 
-   public open(modal: any): void {
-      this.modalService.open(modal);
-   }
 }

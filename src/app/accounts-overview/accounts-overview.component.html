@@ -1,0 +1,14 @@
+<div>
+  <div>
+    <h1 *ngIf="sum$ | async as sum">{{ sum | currency : 'CHF' }}</h1>
+  </div>
+  <div class="accounts mt-4">
+    <div class="card" *ngFor="let account of accounts$ | async">
+      <div class="card-body">
+        <h5 class="card-title">{{ account.amount | currency : account.currency }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ account.bank }}</h6>
+        <p class="card-text">{{ account.accountType }}</p>
+      </div>
+    </div>
+  </div>
+</div>
