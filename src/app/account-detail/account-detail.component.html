@@ -1,0 +1,34 @@
+<div>
+  <div>
+    <h1>
+      {{ bank }}
+    </h1>
+    <h1>
+      {{ balanceAmount | currency : currency }}
+    </h1>
+  </div>
+  <div class="mt-4">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Information</th>
+        <th scope="col">Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let accountTransaction of accountTransactions$ | async">
+        <td>
+          {{ accountTransaction.bookingDateTime | date: 'medium' }}
+        </td>
+        <td>
+          {{ accountTransaction.transactionInformation }}
+        </td>
+        <td [ngClass]="{'red': accountTransaction.amount < 0}">
+          {{ accountTransaction.amount | currency : currency }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
