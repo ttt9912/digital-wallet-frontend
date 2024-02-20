@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { Account } from '../../model/model';
 import { AsyncPipe, CurrencyPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-accounts-overview',
@@ -11,7 +13,8 @@ import { AsyncPipe, CurrencyPipe, NgClass, NgForOf, NgIf } from '@angular/common
     NgForOf,
     NgIf,
     CurrencyPipe,
-    NgClass
+    NgClass,
+    RouterLink
   ],
   templateUrl: './accounts-overview.component.html',
   styleUrl: './accounts-overview.component.scss'
@@ -20,14 +23,8 @@ export class AccountsOverviewComponent {
   accounts$: Observable<Account[]>
   sum$: Observable<number>
 
-  constructor() {
-    this.accounts$ = of(
-      [
-        { accountId: '9348579', bank: 'UBS', accountType: 'Savings', currency: 'CHF', amount: -5231.25 },
-        { accountId: '3920432', bank: 'BEKB', accountType: 'Savings', currency: 'CHF', amount: 1231.25 },
-        { accountId: '2342343', bank: 'BEKB', accountType: 'Savings', currency: 'CHF', amount: 1231.25 }
-      ]
-    );
+  constructor(private http: HttpClient) {
+    this.accounts$ = this.http.get<Account[]>('http://localhost:8080/api/accounts')
     this.sum$ = this.accounts$.pipe(
       map(accounts => this.sumAccounts(accounts))
     )
@@ -35,7 +32,7 @@ export class AccountsOverviewComponent {
 
   private sumAccounts(accounts: Account[]): number {
     return accounts
-      .map(account => account.amount)
+      .map(account => account.balanceAmount)
       .reduce((a, b) => a + b, 0);
   }
 }
