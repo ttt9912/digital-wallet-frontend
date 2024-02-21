@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Account, AccountTransaction } from '../../model/model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-account-detail',
@@ -26,13 +27,14 @@ export class AccountDetailComponent {
   constructor(private http: HttpClient,
               private activatedRoute: ActivatedRoute) {
     const accountId = this.activatedRoute.snapshot.paramMap.get('accountId');
-    this.account$ = this.http.get<Account>(`http://localhost:8080/api/accounts/${accountId}`);
-    this.accountTransactions$ = this.http.get<AccountTransaction[]>(`http://localhost:8080/api/accounts/${accountId}/transactions`).pipe(
+    this.account$ = this.http.get<Account>(`${environment.apiUrl}/accounts/${accountId}`);
+    this.accountTransactions$ = this.http.get<AccountTransaction[]>(`${environment.apiUrl}/accounts/${accountId}/transactions`).pipe(
       map(accountTransactions => this.sortByBookingDateTimeDsc(accountTransactions))
     );
   }
 
   private sortByBookingDateTimeDsc(transactions: AccountTransaction[]): AccountTransaction[] {
-    return transactions.sort((a, b) => new Date(b.bookingDateTime).getTime() - new Date(a.bookingDateTime).getTime());
+    return transactions.sort((a, b) =>
+      new Date(b.bookingDateTime).getTime() - new Date(a.bookingDateTime).getTime());
   }
 }

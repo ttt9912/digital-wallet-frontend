@@ -4,6 +4,7 @@ import { Account } from '../../model/model';
 import { AsyncPipe, CurrencyPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-accounts-overview',
@@ -23,7 +24,7 @@ export class AccountsOverviewComponent {
   accounts$: Observable<Account[]>
 
   constructor(private http: HttpClient) {
-    this.accounts$ = this.http.get<Account[]>('http://localhost:8080/api/accounts');
+    this.accounts$ = this.http.get<Account[]>(`${environment.apiUrl}/accounts`);
   }
 
   sumAccountBalanceAmounts(accounts: Account[]): number {
