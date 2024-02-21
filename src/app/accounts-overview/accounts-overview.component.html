@@ -1,7 +1,6 @@
-<div>
-  <div>
+<div *ngIf="accounts$ | async as accounts">
+  <div *ngIf="sumAccountBalanceAmounts(accounts) as sum">
     <h1
-      *ngIf="sum$ | async as sum"
       [ngClass]="{'red': sum < 0}"
       data-testid="sum"
     >
@@ -11,7 +10,7 @@
   <div class="accounts mt-4">
     <div
       class="card"
-      *ngFor="let account of accounts$ | async"
+      *ngFor="let account of accounts"
     >
       <div class="card-body">
         <h5
@@ -24,7 +23,6 @@
         <p class="card-text">{{ account.accountType }}&nbsp;{{ account.accountSubType }}</p>
         <a
           [routerLink]="['/account', account.accountId]"
-          [queryParams]="{bank: account.bank, currency:account.currency, balanceAmount: account.balanceAmount}"
           class="stretched-link"
         >
           Details

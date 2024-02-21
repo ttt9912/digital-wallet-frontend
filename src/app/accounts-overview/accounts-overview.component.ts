@@ -21,18 +21,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountsOverviewComponent {
   accounts$: Observable<Account[]>
-  sum$: Observable<number>
 
   constructor(private http: HttpClient) {
-    this.accounts$ = this.http.get<Account[]>('http://localhost:8080/api/accounts')
-    this.sum$ = this.accounts$.pipe(
-      map(accounts => this.sumAccounts(accounts))
-    )
+    this.accounts$ = this.http.get<Account[]>('http://localhost:8080/api/accounts');
   }
 
-  private sumAccounts(accounts: Account[]): number {
+  sumAccountBalanceAmounts(accounts: Account[]): number {
     return accounts
       .map(account => account.balanceAmount)
-      .reduce((a, b) => a + b, 0);
+      .reduce((amountA, amountB) => this.sum(amountA, amountB), 0);
+  }
+
+  private sum(amountA: number, amountB: number) {
+    return (amountA * 100 + amountB * 100) / 100;
   }
 }
