@@ -11,11 +11,21 @@
   <div class="mt-4">
     <table
       class="table"
-      *ngIf="accountTransactions$ | async as accountTransactions"
+      *ngIf="accountTransactions.length > 0"
     >
       <thead>
       <tr>
-        <th scope="col">Date</th>
+        <th scope="col">
+          Date
+          <i class="bi sort-icon"
+             [ngClass]="{
+             'bi-arrow-down-short':sortDsc,
+             'bi-arrow-up-short':!sortDsc
+             }"
+             (click)="onSort()"
+          >
+          </i>
+        </th>
         <th scope="col">Information</th>
         <th scope="col">Amount</th>
       </tr>
