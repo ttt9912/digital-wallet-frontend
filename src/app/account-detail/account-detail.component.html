@@ -3,7 +3,7 @@
     <h3>
       {{ account.bank }}
     </h3>
-    <h1>
+    <h1 [ngClass]="{'red': account.balanceAmount < 0}">
       {{ account.balanceAmount | currency : account.currency }}
     </h1>
     <div>{{ account.accountType }}&nbsp;{{ account.accountSubType }}</div>
